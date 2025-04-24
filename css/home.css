@@ -78,18 +78,21 @@ body {
 .row h2 {
   margin-bottom: 15px;
   color: #ff4c60;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .list {
   display: flex;
   overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 10px;
   gap: 15px;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
 }
 
 .list img {
   width: 160px;
+  height: auto;
   cursor: pointer;
   border-radius: 8px;
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -238,7 +241,7 @@ body {
   color: #fff;
 }
 
-/* Responsive */
+/* Responsive Layout Fixes */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -272,6 +275,10 @@ body {
     width: 150px;
     font-size: 0.9rem;
   }
+
+  .row h2 {
+    font-size: 1.25rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -293,5 +300,9 @@ body {
 
   .search-modal input {
     font-size: 16px;
+  }
+
+  .list img {
+    width: 100px;
   }
 }

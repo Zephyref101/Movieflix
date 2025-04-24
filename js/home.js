@@ -3,23 +3,25 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/original';
 let currentItem;
 
-async function fetchTrending(type) {
-  const res = await fetch(`${BASE_URL}/trending/${type}/week?api_key=${API_KEY}`);
+let pageMovies = 1;
+let pageTVShows = 1;
+let pageAnime = 1;
+
+async function fetchTrending(type, page) {
+  const res = await fetch(`${BASE_URL}/trending/${type}/week?api_key=${API_KEY}&page=${page}`);
   const data = await res.json();
   return data.results;
 }
 
-async function fetchTrendingAnime() {
+async function fetchTrendingAnime(page) {
   let allResults = [];
 
-  for (let page = 1; page <= 3; page++) {
-    const res = await fetch(`${BASE_URL}/trending/tv/week?api_key=${API_KEY}&page=${page}`);
-    const data = await res.json();
-    const filtered = data.results.filter(item =>
-      item.original_language === 'ja' && item.genre_ids.includes(16)
-    );
-    allResults = allResults.concat(filtered);
-  }
+  const res = await fetch(`${BASE_URL}/trending/tv/week?api_key=${API_KEY}&page=${page}`);
+  const data = await res.json();
+  const filtered = data.results.filter(item =>
+    item.original_language === 'ja' && item.genre_ids.includes(16)
+  );
+  allResults = allResults.concat(filtered);
 
   return allResults;
 }
@@ -31,7 +33,6 @@ function displayBanner(item) {
 
 function displayList(items, containerId) {
   const container = document.getElementById(containerId);
-  container.innerHTML = '';
   items.forEach(item => {
     const img = document.createElement('img');
     img.src = `${IMG_URL}${item.poster_path}`;
@@ -109,15 +110,33 @@ async function searchTMDB() {
   });
 }
 
+async function loadMoreMovies() {
+  pageMovies++;
+  const movies = await fetchTrending('movie', pageMovies);
+  displayList(movies, 'movies-carousel');
+}
+
+async function loadMoreTVShows() {
+  pageTVShows++;
+  const tvShows = await fetchTrending('tv', pageTVShows);
+  displayList(tvShows, 'tv-carousel');
+}
+
+async function loadMoreAnime() {
+  pageAnime++;
+  const anime = await fetchTrendingAnime(pageAnime);
+  displayList(anime, 'anime-carousel');
+}
+
 async function init() {
-  const movies = await fetchTrending('movie');
-  const tvShows = await fetchTrending('tv');
-  const anime = await fetchTrendingAnime();
+  const movies = await fetchTrending('movie', pageMovies);
+  const tvShows = await fetchTrending('tv', pageTVShows);
+  const anime = await fetchTrendingAnime(pageAnime);
 
   displayBanner(movies[Math.floor(Math.random() * movies.length)]);
-  displayList(movies, 'movies-list');
-  displayList(tvShows, 'tvshows-list');
-  displayList(anime, 'anime-list');
+  displayList(movies, 'movies-carousel');
+  displayList(tvShows, 'tv-carousel');
+  displayList(anime, 'anime-carousel');
 }
 
 init();
@@ -140,3 +159,8 @@ window.addEventListener('keydown', function (e) {
     }
   }
 });
+
+// Event listeners for Load More buttons
+document.querySelector('.load-more[data-category="movies"]').addEventListener('click', loadMoreMovies);
+document.querySelector('.load-more[data-category="tv"]').addEventListener('click', loadMoreTVShows);
+document.querySelector('.load-more[data-category="anime"]').addEventListener('click', loadMoreAnime);

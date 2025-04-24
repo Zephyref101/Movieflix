@@ -8,7 +8,7 @@
   <meta property="og:title" content="Movieflix - Trending Content"/>
   <meta property="og:image" content="https://i.ibb.co/sYXtgQF/Movieflix.png"/>
   <meta property="og:description" content="Discover top trending movies, shows, and anime."/>
-  <title>My Website</title>
+  <title>Movieflix</title>
 
   <!-- Preload and load CSS -->
   <link rel="preload" href="css/home.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -35,21 +35,24 @@
     </section>
 
     <!-- Trending Movies Section -->
-    <section class="row">
+    <section class="category" id="movies-section">
       <h2>Trending Movies</h2>
-      <div class="list" id="movies-list"></div>
+      <div class="carousel" id="movies-carousel"></div>
+      <button class="load-more" data-category="movies">Load More</button>
     </section>
 
     <!-- Trending TV Shows Section -->
-    <section class="row">
+    <section class="category" id="tvshows-section">
       <h2>Trending TV Shows</h2>
-      <div class="list" id="tvshows-list"></div>
+      <div class="carousel" id="tv-carousel"></div>
+      <button class="load-more" data-category="tv">Load More</button>
     </section>
 
     <!-- Trending Anime Section -->
-    <section class="row">
+    <section class="category" id="anime-section">
       <h2>Trending Anime</h2>
-      <div class="list" id="anime-list"></div>
+      <div class="carousel" id="anime-carousel"></div>
+      <button class="load-more" data-category="anime">Load More</button>
     </section>
   </main>
 
@@ -89,7 +92,7 @@
 
   <footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2025 My Website. All rights reserved.</p>
+      <p>&copy; 2025 Movieflix. All rights reserved.</p>
       <div class="footer-links">
         <a href="#">Disclaimer</a>
         <a href="#">About Us</a>

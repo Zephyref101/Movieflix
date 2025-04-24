@@ -1,105 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Watch trending movies, TV shows, and anime on Movieflix.">
-  <meta name="keywords" content="movies, tv shows, anime, streaming, free">
-  <meta property="og:title" content="Movieflix - Trending Content"/>
-  <meta property="og:image" content="https://i.ibb.co/sYXtgQF/Movieflix.png"/>
-  <meta property="og:description" content="Discover top trending movies, shows, and anime."/>
-  <title>Movieflix</title>
-
-  <!-- Preload and load CSS -->
-  <link rel="preload" href="css/home.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="css/home.css"></noscript>
-
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script defer src="js/home.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Movieflix</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <header class="navbar">
-    <img loading="lazy" src="https://i.ibb.co/sYXtgQF/Movieflix.png" alt="Movieflix Logo" />
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <label for="main-search" class="visually-hidden">Search</label>
-      <input type="text" id="main-search" class="search-bar" placeholder="Search..." />
-    </nav>
-  </header>
+    <!-- Navbar Section -->
+    <header class="navbar">
+        <img src="logo.png" alt="Movieflix Logo">
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">TV Shows</a>
+            <a href="#">Anime</a>
+            <input type="text" id="search-input" class="search-bar" placeholder="Search">
+        </nav>
+    </header>
 
-  <main>
-    <section class="banner" id="banner">
-      <h1 id="banner-title"></h1>
+    <!-- Banner Section -->
+    <section id="banner" class="banner">
+        <h1 id="banner-title">Featured Movie</h1>
     </section>
 
     <!-- Trending Movies Section -->
-    <section class="category" id="movies-section">
-      <h2>Trending Movies</h2>
-      <div class="carousel" id="movies-carousel"></div>
-      <button class="load-more" data-category="movies">Load More</button>
+    <section class="row">
+        <h2>Trending Movies</h2>
+        <div id="movies-list" class="list"></div>
     </section>
 
     <!-- Trending TV Shows Section -->
-    <section class="category" id="tvshows-section">
-      <h2>Trending TV Shows</h2>
-      <div class="carousel" id="tv-carousel"></div>
-      <button class="load-more" data-category="tv">Load More</button>
+    <section class="row">
+        <h2>Trending TV Shows</h2>
+        <div id="tvshows-list" class="list"></div>
     </section>
 
     <!-- Trending Anime Section -->
-    <section class="category" id="anime-section">
-      <h2>Trending Anime</h2>
-      <div class="carousel" id="anime-carousel"></div>
-      <button class="load-more" data-category="anime">Load More</button>
+    <section class="row">
+        <h2>Trending Anime</h2>
+        <div id="anime-list" class="list"></div>
     </section>
-  </main>
 
-  <!-- Modal Section -->
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-content">
-      <span class="close" style="color: red;">&times;</span>
-      <div class="modal-body">
-        <img id="modal-image" src="" alt="" loading="lazy" />
-        <div class="modal-text">
-          <h2 id="modal-title"></h2>
-          <div class="stars" id="modal-rating"></div>
-          <p id="modal-description"></p>
+    <!-- Search Modal -->
+    <div id="search-modal" class="search-modal">
+        <div class="modal-content">
+            <input type="text" id="search-input" class="search-bar" placeholder="Search">
+            <div id="search-results" class="results"></div>
         </div>
-      </div>
-
-      <div class="server-selector">
-        <label for="server">Change Server:</label>
-        <select id="server">
-          <option value="vidsrc.cc">Vidsrc.cc</option>
-          <option value="vidsrc.me">Vidsrc.me</option>
-          <option value="player.videasy.net">Player.Videasy.net</option>
-        </select>
-      </div>
-
-      <iframe id="modal-video" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
     </div>
-  </div>
 
-  <!-- Search Modal -->
-  <div class="search-modal" id="search-modal" role="dialog" aria-modal="true">
-    <span class="close" style="color: red;">&times;</span>
-    <label for="search-input" class="visually-hidden">Search Movies or Shows</label>
-    <input type="text" id="search-input" placeholder="Search for a movie or show..." />
-    <div class="results" id="search-results"></div>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <p>&copy; 2025 Movieflix. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="#">Disclaimer</a>
-        <a href="#">About Us</a>
-        <a href="#">Contact Us</a>
-      </div>
+    <!-- Video Modal (for movie/show details) -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <img id="modal-image" alt="Poster">
+                <div class="modal-text">
+                    <h2 id="modal-title">Title</h2>
+                    <p id="modal-description">Description of the movie or show...</p>
+                    <div id="modal-rating" class="stars">★★★★★</div>
+                    <div class="server-selector">
+                        <label for="server">Select Server:</label>
+                        <select id="server">
+                            <option value="vidsrc.cc">vidsrc.cc</option>
+                            <option value="vidsrc.me">vidsrc.me</option>
+                            <option value="player.videasy.net">player.videasy.net</option>
+                        </select>
+                    </div>
+                    <iframe id="modal-video" src="" width="100%" height="400px" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
-  </footer>
 
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Movieflix | All Rights Reserved</p>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

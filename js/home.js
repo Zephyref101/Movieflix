@@ -69,9 +69,10 @@ const API_KEY = '60fae3fb011db1ea56cc195b1c96dc67';
       document.getElementById('modal-video').src = embedURL;
     }
 
-    function closeModal() {
-      document.getElementById('modal').style.display = 'none';
-      document.getElementById('modal-video').src = '';
+     function closeModal() {
+    const modal = document.getElementById('modal');
+    const iframe = document.getElementById('modal-video');
+
     }
 
     function openSearchModal() {
